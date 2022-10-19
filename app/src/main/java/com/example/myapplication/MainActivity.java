@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     EditText numberEditText;
     ArrayList <Integer> obrazki = new ArrayList<>();
     int indeksAktualny = 0;
+    Button wsteczButton;
+    Button dalejButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +31,34 @@ public class MainActivity extends AppCompatActivity {
         obrazki.add(R.drawable.rys4);
         obrazekImageView =findViewById(R.id.imageView);
         numberEditText = findViewById(R.id.editTextNumber);
+        wsteczButton = findViewById(R.id.button);
+        dalejButton = findViewById(R.id.button2);
+        wsteczButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        indeksAktualny -- ;
+                        if(indeksAktualny<0){
+                            indeksAktualny = 0;
+                        }
+                        obrazekImageView.
+                                setImageResource(obrazki.get(indeksAktualny));
+                    }
+                }
+        );
+        dalejButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        indeksAktualny ++ ;
+                        if(indeksAktualny>=obrazki.size()){
+                            indeksAktualny = obrazki.size()-1;
+                        }
+                        obrazekImageView.
+                                setImageResource(obrazki.get(indeksAktualny));
+                    }
+                }
+        );
         numberEditText.addTextChangedListener(
                 new TextWatcher() {
                     @Override
